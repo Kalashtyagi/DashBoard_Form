@@ -194,14 +194,14 @@ const Dashboard = () => {
   console.log("adminlogs", allAdminLogs);
   return (
     <>
-      {data.length === 0 ? (
+      {/* {data.length === 0 ? (
         <>
           <CircularProgress
             color="secondary"
             style={{ marginLeft: "55%", marginTop: "300px" }}
           />
         </>
-      ) : (
+      ) : ( */}
         <Box
           m="20px"
           sx={{
@@ -426,8 +426,12 @@ const Dashboard = () => {
               >
                 New Merchant
               </Typography>
-              {notMatchingData.slice(0, 10).map((newItem, index) => (
-                <>
+              {notMatchingData.length === 0 ? (
+    <Typography variant="h5" mt={2} ml={2} color="textSecondary">
+      No data found
+    </Typography>
+  ) : (               
+     <>
                   <Box
                     display="flex"
                     flexDirection="row"
@@ -483,7 +487,8 @@ const Dashboard = () => {
                     </Box>
                   </Box>
                 </>
-              ))}
+  )}
+                 
             </Box>
             <Box
               gridColumn="span 8"
@@ -593,7 +598,7 @@ const Dashboard = () => {
           </Modal>
           <ToastContainer />
         </Box>
-      )}
+      {/* )} */}
     </>
   );
 };

@@ -47,10 +47,11 @@ function SendEmailModal({rowData,emailModalOpen,setEmailModalOpen,handleCloseEma
     console.log("rowdata",rowData);
     const handleSendEmail=async(e)=>{ 
       e.preventDefault();
-      if(emailData.formId==null){
-        toast.warning("chose formId");
-        return;
-      }      setLoading(true);  
+      // if(emailData.formId==null){
+      //   toast.warning("chose formId");
+      //   return;
+      // }  
+          setLoading(true);  
 
       
            try{ 
@@ -60,8 +61,12 @@ function SendEmailModal({rowData,emailModalOpen,setEmailModalOpen,handleCloseEma
               body:` Fill Your  Form ${rowData.merchantName}<br/> ${EMAIL_URL}?merchantId=${rowData.merchantId}&formId=${emailData.formId}`,
                 subject:"Kindly fill the Pci Dss SaqA 1 form"
             })
+            console.log("response",response);
              if(response?.status==200){
-              toast.success(response?.data?.message);
+              const responseData=await response?.data;
+              toast.success(responseData?.message,{
+                position:'top-center'
+              });
               console.log("response",response.data.message);
               setBody('');
               setSubject('');

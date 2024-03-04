@@ -62,7 +62,7 @@ const validateTotalParts=(value)=>{
 // }
 
 const onSubmit = async (data) => {
-  const fileInput = document.querySelector('input[name="FormTemplate"]');
+  const  fileInput = document.querySelector('input[name="FormTemplate"]');
   const fileType = fileInput.files[0]?.type;
   const formData = new FormData();
   formData.append("title", data.title);

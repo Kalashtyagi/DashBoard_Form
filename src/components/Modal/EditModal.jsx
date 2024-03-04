@@ -8,18 +8,20 @@ import { DarkContext } from "../../scenes/global/DarkBar";
 
 function EditModal({ selectedItem, editModalOpen, setEditModalOpen, handleCloseModal }) { 
   const[loading,setLoading]=useState(false);
+  console.log("selectedIntem",selectedItem);
 
   const [editData, setEditData] = useState({
-    name:"",
-    address:"",
+    
+    leagalName:"",
+    merchantType:"",
     phone:"",
     email:"",
   });
   const { isDark } = useContext(DarkContext);
   useEffect(()=>{
     setEditData({ 
-         name:selectedItem?.merchantName,
-         address:selectedItem?.address,
+         leagalName:selectedItem?.leagalName,
+         merchantType:selectedItem?.merchantType,
          phone:selectedItem?.phone,
          email:selectedItem?.email
     })
@@ -32,32 +34,18 @@ function EditModal({ selectedItem, editModalOpen, setEditModalOpen, handleCloseM
         const patchData = [
             {
                 // operationType: 0,
-                path: "/merchantName",
+                path: "/leagalName",
                 op: "replace",
                 from: "string",
-                value:`${editData?.name}`,
+                value:`${editData?.leagalName}`,
             },
             {
-              // operationType: 0,
               path: "/email",
               op: "replace",
               from: "string",
               value:`${editData?.email}`, 
             },
-            {
-            // operationType: 0,
-                path: "/phone",
-                op: "replace",
-                from: "string",
-                value:`${editData?.phone}`,
-            },
-            {
-              // operationType: 0,
-                  path: "/address",
-                  op: "replace",
-                  from: "string",
-                  value:`${editData.address}`,
-              },
+           
            
             
         ];
@@ -72,9 +60,12 @@ function EditModal({ selectedItem, editModalOpen, setEditModalOpen, handleCloseM
         );
         const result=await response.data;
         setLoading(false);
-        toast.success(result.message);
+        toast.success("Data update Successfully",{
+          position:'top-center'
+        });
 
     } catch (error) {
+      toast.error("Something went wrong")
         console.error("Error editing merchant:", error);
     }finally{
       setLoading(false);
@@ -102,9 +93,9 @@ function EditModal({ selectedItem, editModalOpen, setEditModalOpen, handleCloseM
         }}
       >
         <TextField
-          label="Name"
-          value={editData.name}
-          name="name"
+          label="Leagal Name"
+          value={editData.leagalName}
+          name="leagalName"
           onChange={(e) => setEditData({ ...editData, [e.target.name]: e.target.value })}
           fullWidth
           margin="normal"
@@ -129,34 +120,23 @@ function EditModal({ selectedItem, editModalOpen, setEditModalOpen, handleCloseM
 
           margin="normal"
         />
-        <TextField
-          label="Phone Number"
-          name="phone"
-          value={editData.phone}
+         <TextField
+          label="MerchantType"
+          name="merchantType"
+          value={editData.merchantType}
           onChange={(e) => setEditData({ ...editData, [e.target.name]: e.target.value })}
           fullWidth
-          margin="normal"
           InputLabelProps={{
             style: {
               color: isDark ? "black" : "white",
             },
           }}
 
-        />
-        <TextField
-          label="Address"
-          value={editData.address}
-          name="address"
-          onChange={(e) => setEditData({ ...editData, [e.target.name]: e.target.value })}
-          fullWidth
           margin="normal"
-          InputLabelProps={{
-            style: {
-              color: isDark ? "black" : "white",
-            },
-          }}
-
         />
+        
+       
+        
 
         <Box sx={{ display: "flex", justifyContent: "flex-end", marginTop: 2 }}>
           <Button
@@ -176,6 +156,7 @@ function EditModal({ selectedItem, editModalOpen, setEditModalOpen, handleCloseM
           </Button>
         </Box>
       </Box>
+      
     </Modal>
   );
 }

@@ -1,3 +1,4 @@
+
 import React, { useState, useContext } from "react";
 import { ProSidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
@@ -42,7 +43,6 @@ const Sidebar = () => {
   const navigate = useNavigate();
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  // const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
   const [dialogOpen, setDialogOpen] = useState(false);
   const { isCollapsed, setIsCollapsed } = useContext(SidebarContext);
@@ -51,11 +51,14 @@ const Sidebar = () => {
     setIsCollapsed(!isCollapsed);
   };
 
-  // const handleLogOut=async()=>{
-  //   sessionStorage.removeItem("userId");
-  //   toast.success("successfully Logout")
-  //   navigate("/");
-  // }
+  const handleLogOut=async()=>{
+    sessionStorage.clear();
+    toast.success("successfully Logout")
+    setTimeout(() => {
+      navigate("/");
+
+    }, 600);
+  }
   return (
     <Box
       sx={{
@@ -160,28 +163,13 @@ const Sidebar = () => {
             >
               Pages
             </Typography>
-            <SubMenu
+            <Item
               title="Add Merchant"
-              icon={<AddIcon />}
-              style={{
-                color: colors.grey[100],
-              }}
-            >
-              <Item
-                title="Single Merchant"
-                to="/form"
-                icon={<PersonAddIcon />}
-                selected={selected}
-                setSelected={setSelected}
-              />
-              <Item
-                title="Multiple Merchant"
-                to="/bulkupload"
-                icon={<FileCopyIcon />}
-                selected={selected}
-                setSelected={setSelected}
-              />
-            </SubMenu>
+              to="/form"
+              icon={<PersonAddIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
 
             <Typography
               variant="h6"
@@ -226,18 +214,19 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-            {/* <div   onClick={handleLogOut}> */}
+            <div   onClick={handleLogOut}>
             <Item
               title="Sign Out"
-              to="/"
+              // to="/"
               icon={<LogoutIcon />}
-              selected={selected}
-              setSelected={setSelected}
+              // selected={selected}
+              // setSelected={setSelected}
             />
-            {/* </div> */}
+            </div>
           </Box>
         </Menu>
       </ProSidebar>
+      <ToastContainer/>
     </Box>
   );
 };

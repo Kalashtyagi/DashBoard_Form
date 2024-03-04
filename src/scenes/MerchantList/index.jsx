@@ -80,22 +80,15 @@ const Contacts = () => {
       cellClassName: "custom-cell",
     },
     {
-      field: "merchantName",
-      headerName: "Name",
+      field: "leagalName",
+      headerName: "Leagal Name",
       flex: 1,
       headerAlign: "center",
       align: "center",
       cellClassName: "custom-cell",
     },
 
-    {
-      field: "phone",
-      headerName: "Phone Number",
-      flex: 2,
-      headerAlign: "center",
-      align: "center",
-      cellClassName: "custom-cell",
-    },
+
     {
       field: "email",
       headerName: "Email",
@@ -104,14 +97,7 @@ const Contacts = () => {
       align: "center",
       cellClassName: "custom-cell",
     },
-    {
-      field: "address",
-      headerName: "Address",
-      flex: 1,
-      headerAlign: "center",
-      align: "center",
-      cellClassName: "custom-cell",
-    },
+   
     {
       field: "merchantType",
       headerName: "Merchant Type",
@@ -121,8 +107,8 @@ const Contacts = () => {
       cellClassName: "custom-cell",
     },
     {
-      field: "adminId",
-      headerName: "Admin Id",
+      field: "caseOwner",
+      headerName: "Owner ID",
       flex: 4,
       headerAlign: "center",
       align: "center",

@@ -15,7 +15,7 @@ function SendEmailModal({rowData,emailModalOpen,setEmailModalOpen,handleCloseEma
      const[loading,setLoading]=useState(false);
 
      const[emailData,setEmailData]=useState({
-        name:'',
+        leagalName:'',
         email:'',
         merchantId:'',
         formId:null
@@ -23,7 +23,7 @@ function SendEmailModal({rowData,emailModalOpen,setEmailModalOpen,handleCloseEma
      
       useEffect(()=>{
         setEmailData({ 
-             name:rowData?.merchantName,
+             leagalName:rowData?.leagalName,
              email:rowData?.email,
              merchantId:rowData?.merchantId,    
         })
@@ -58,7 +58,8 @@ function SendEmailModal({rowData,emailModalOpen,setEmailModalOpen,handleCloseEma
             const response=await axios.post(`${BASE_URL}SendEmail`,{
                 adminId:storedUserId,
                 toEmailId:rowData?.email,
-              body:` Fill Your  Form ${rowData.merchantName}<br/> ${EMAIL_URL}?merchantId=${rowData.merchantId}&formId=${emailData.formId}`,
+                body:`http://localhost:3000/?merchantId=${rowData.merchantId}&formId=${emailData.formId}`,
+              // body:` Fill Your  Form ${rowData.leagalName}<br/> ${EMAIL_URL}?merchantId=${rowData.merchantId}&formId=${emailData.formId}`,
                 subject:"Kindly fill the Pci Dss SaqA 1 form"
             })
             console.log("response",response);
@@ -110,8 +111,8 @@ function SendEmailModal({rowData,emailModalOpen,setEmailModalOpen,handleCloseEma
            <Grid container spacing={2}>
             <Grid item xs={6}>
               <TextField
-                label="Name"
-                value={emailData.name}
+                label="Leagal Name"
+                value={emailData.leagalName}
                 fullWidth
                 margin="normal"
                 InputLabelProps={{

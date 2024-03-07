@@ -58,11 +58,16 @@ function EditModal({ selectedItem, editModalOpen, setEditModalOpen, handleCloseM
               },
             }
         );
-        const result=await response.data;
-        setLoading(false);
-        toast.success("Data update Successfully",{
-          position:'top-center'
-        });
+        console.log("response",response);
+        if(response?.status===200){
+          toast.success("Data update Successfully",{
+            position:'top-center'
+          });
+
+        }
+        // const result=await response.data;
+        // setLoading(false);
+       
 
     } catch (error) {
       toast.error("Something went wrong")
@@ -156,7 +161,6 @@ function EditModal({ selectedItem, editModalOpen, setEditModalOpen, handleCloseM
           </Button>
         </Box>
       </Box>
-      
     </Modal>
   );
 }

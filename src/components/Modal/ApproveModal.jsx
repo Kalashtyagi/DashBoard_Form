@@ -52,7 +52,9 @@ function ApproveModal({ anchorEl, rowData, app, handlePopoverClose }) {
             ];
             const response = await axios.patch(`${BASE_URL}UpdateMerchantFormSubmissions?FormId=${rowData.formID}&MerchantId=${rowData.merchantID}`, patchData);
             console.log("reponse", response.data.message);
-            toast.success(response.data.message);
+            toast.success(response.data.message,{
+                position:'top-center'
+            });
             setLoading(false);
             handlePopoverClose();
             setReviewComments('');

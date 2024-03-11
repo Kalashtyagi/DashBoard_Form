@@ -88,6 +88,8 @@ function SendEmailModal({rowData,emailModalOpen,setEmailModalOpen,handleCloseEma
       }
      
     return(
+      <>
+     
         <Modal
         open={emailModalOpen}
         onClose={handleCloseEmailModal}
@@ -194,6 +196,8 @@ function SendEmailModal({rowData,emailModalOpen,setEmailModalOpen,handleCloseEma
           </Box>
         </Box>
       </Modal>
+      <ToastContainer/>
+      </>
     )
 }
 export default SendEmailModal;

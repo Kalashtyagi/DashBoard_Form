@@ -118,6 +118,7 @@ const MerchantForm = () => {
           responseType: 'blob',
         }
       );
+      console.log("response",response);
   
       const blob = new Blob([response.data], { type: 'application/pdf' });
       const url = window.URL.createObjectURL(blob);

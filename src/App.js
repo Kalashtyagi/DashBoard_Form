@@ -19,34 +19,36 @@ import FormInfo from "./scenes/MerchantList/FormInfo";
 import { ToastContainer } from "react-toastify";
 import ProtectedRoute from "./utils/ProtectedRoute";
 import Pdf from "./components/pdf/pdf";
-
+import MrmScreen from "./scenes/MrmScreen/MrmScreen";
+import MerchantApproval from "./scenes/MerchantApproval/MerchantApproval";
 function App() {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
   const navigate = useNavigate();
   const storedUserId = sessionStorage.getItem("userId");
  
-  useEffect(() => {
-  const checkAuthentication = async () => {
-    try {
-      if (!storedUserId) {
-        await navigate("/");
-      }
-    } catch (error) {
-      console.error("Error occurred while checking authentication:", error);
-    }
-  };
+//   useEffect(() => {
+//   const checkAuthentication = async () => {
+//     try {
+//       if (!storedUserId) {
+//         await navigate("/");
+//       }
+//     } catch (error) {
+//       console.error("Error occurred while checking authentication:", error);
+//     }
+//   };
 
-  checkAuthentication();
+//   checkAuthentication();  
 
-}, [storedUserId, navigate]);
+// }, [storedUserId, navigate]);
 
   const isLoginPage = window.location.pathname === "/";
   const isForgetPassword = window.location.pathname === "/reset-password";
   const isPdf = window.location.pathname === "/pdf";
+  const isMrm=window.location.pathname==="/mrm";
 
 
-  const sidebarVisible = isLoginPage || isForgetPassword || isPdf ? false : isSidebar;
+  const sidebarVisible = isMrm || isLoginPage || isForgetPassword || isPdf ? false : isSidebar;
   
 
   return (
@@ -72,6 +74,8 @@ function App() {
               <Route path="merchantForm" element={<MerchantForm />} />
               <Route path="formInformation" element={<FormInfo />} />
               <Route path="/pdf" element={<Pdf/>}/>
+              <Route path="/mrm" element={<MrmScreen/>}/>
+              <Route path="merchantApproval" element={<MerchantApproval/>}/>
             </Routes>
           </main>
         </div>

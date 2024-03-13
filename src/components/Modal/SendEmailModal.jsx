@@ -58,8 +58,8 @@ function SendEmailModal({rowData,emailModalOpen,setEmailModalOpen,handleCloseEma
             const response=await axios.post(`${BASE_URL}SendEmail`,{
                 adminId:storedUserId,
                 toEmailId:rowData?.email,
-                body:`http://localhost:3000/?merchantId=${rowData.merchantId}&formId=${emailData.formId}`,
-              // body:` Fill Your  Form ${rowData.leagalName}<br/> ${EMAIL_URL}?merchantId=${rowData.merchantId}&formId=${emailData.formId}`,
+                // body:`http://localhost:3000/?merchantId=${rowData.merchantId}&formId=${emailData.formId}`,
+              body:` Fill Your  Form ${rowData.leagalName}<br/> ${EMAIL_URL}?merchantId=${rowData.merchantId}&formId=${emailData.formId}`,
                 subject:"Kindly fill the Pci Dss SaqA 1 form"
             })
             console.log("response",response);

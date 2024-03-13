@@ -28,6 +28,8 @@ import SendEmailModal from "../../components/Modal/SendEmailModal";
 import { useQuery } from "@tanstack/react-query";
 import CircularProgress from "@mui/material/CircularProgress";
 import Skeleton from '@mui/material/Skeleton';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import { DarkContext } from "../global/DarkBar";
 
 
 const fetchData = async () => {
@@ -39,6 +41,8 @@ const fetchData = async () => {
 const Contacts = () => {
   const [merchantData, setMerchantData] = useState([]);
   const theme = useTheme();
+  const { isDark } = useContext(DarkContext);
+
   const colors = tokens(theme.palette.mode);
   const [selectedRow, setSelectedRow] = useState(null);
   const { isCollapsed } = useContext(SidebarContext);
@@ -46,6 +50,7 @@ const Contacts = () => {
   const [emailModalOpen, setEmailModalOpen] = useState(false);
   const [formId, setFormId] = useState([]);
   const [emailRow, setEmailRow] = useState(null);
+  
   const {isLoading,error,data:data1}=useQuery({queryKey:["merchant"],
   queryFn:fetchData,
 })
@@ -87,7 +92,14 @@ const Contacts = () => {
       align: "center",
       cellClassName: "custom-cell",
     },
-
+    {
+      field: "dbaName",
+      headerName: "Dba Name",
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+      cellClassName: "custom-cell",
+    },
 
     {
       field: "email",
@@ -123,12 +135,15 @@ const Contacts = () => {
       cellClassName: "custom-cell",
       renderCell: (params) => (
         <div
-          style={{ cursor: "pointer" }}
-          onClick={() => handleEdit(params.row)}
+          style={{ cursor: "pointer",display:'flex',justifyContent:"space-around" }}
+         
         >
-          <Button size="small" variant="contained" color="success">
+          <Button size="small" variant="contained" color="success" onClick={() => handleEdit(params.row)} >
             Edit
           </Button>
+         
+          
+
         </div>
       ),
     },
@@ -177,7 +192,7 @@ const Contacts = () => {
       }}
     >
       <Header title="Merchant List" subtitle="List of Merchants" />
-      {/* {isLoading && <Skeleton variant="rectangular" style={{width:'100px',height:'100px',borderRadius:'50%',textAlign:'center'}}/>} */}
+     
       {isLoading &&   <CircularProgress color="secondary"style={{marginLeft:'45%',marginTop:'200px'}}  />}
 
       {data1 &&(

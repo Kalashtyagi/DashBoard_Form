@@ -53,7 +53,9 @@ const Sidebar = () => {
 
   const handleLogOut=async()=>{
     sessionStorage.clear();
-    toast.success("successfully Logout")
+    toast.success("successfully Logout",{
+      position:'top-center'
+    })
     setTimeout(() => {
       navigate("/");
 
@@ -141,6 +143,7 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
+            
             <Item
               title="Form Information"
               to="/formInformation"
@@ -152,6 +155,13 @@ const Sidebar = () => {
               title="Merchant Submission"
               to="/merchantForm"
               icon={<ArticleIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Merchant Approval"
+              to="/merchantApproval"
+              icon={<ContactsOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />

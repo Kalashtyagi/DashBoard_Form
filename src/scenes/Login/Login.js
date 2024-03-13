@@ -91,10 +91,11 @@ export default function Login() {
         setRes(responseData?.data);
         sessionStorage.setItem("userId", responseData?.data?.adminId);
         sessionStorage.setItem("AdminEmail", responseData?.data?.email);
-
-        toast.success("Login Successfully");
-
         navigate("/dashboard");
+        toast.success("Login Successfully",{
+          position:'top-center'
+        });
+
         setLoading(false);
       } else {
         const responseData = await response.json();
@@ -128,7 +129,8 @@ export default function Login() {
     setLoading(false);
     console.error("Invalid email format or does not contain 'hdfc'.");
   }else{
-    navigate("/dashboard");
+    sessionStorage.setItem("MrmEmail",mrmEmail);
+    navigate("/mrm");
 
   }
 

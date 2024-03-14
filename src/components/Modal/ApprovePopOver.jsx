@@ -63,7 +63,6 @@ function ApprovePopOver({anchorEl,rowData,app,handlePopoverClose}){
 
       };
       const handleDisapprove = () => {
-        console.log("Disapproved:", selectedItem);
             handlePopoverClose();
       };
     return(

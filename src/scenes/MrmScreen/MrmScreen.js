@@ -51,7 +51,7 @@ function MrmScreen(){
       formData.append("dbaName",data.dbaName);
       formData.append("email",data.email);
       formData.append("leagalName",data.leagalName);
-      formData.append("merchantType","Level 4");
+      formData.append("merchantType","MRM_Level 4");
       formData.append("image",selectImage);
       try {
         const response = await axios.post(
@@ -69,7 +69,9 @@ function MrmScreen(){
         if (response?.status == 200) {
           const responseData = await response?.data;
           console.log("API Response:", responseData);
-          toast.success(responseData?.message);
+          toast.success(responseData?.message,{
+            position:'top-center'
+          });
           reset();
           setLoading(false);
   
@@ -448,8 +450,8 @@ function MrmScreen(){
              }}
            >
              <DataGrid
-      rows={data1.filter(row => row.creatorEmailID == MrmEmail)}
-      columns={columns}
+  rows={data1.filter(row => row.creatorEmailID === MrmEmail)}
+  columns={columns}
                components={{ Toolbar: GridToolbar }}
                align="center"
              />
@@ -469,7 +471,7 @@ function MrmScreen(){
         setEmailModalOpen={setEditModalOpen}
       /> */}
     </Box>
-     
+     <ToastContainer/>
         </>
     )
 }

@@ -23,7 +23,9 @@ const ViewImageModal = ({ modalOpen, merchantInfo, setModalOpen }) => {
   const storedUserId = sessionStorage.getItem("userId");
   const [loading, setLoading] = useState(false);
   const[disLoading,setDisLoading]=useState(false);
-  console.log("merchantinfo",merchantInfo.merchantId);
+  const[action,setAction]=useState('');
+  console.log("merchantinfo",merchantInfo);
+
 
   const fetchImage = async () => {
     try {
@@ -45,21 +47,52 @@ const ViewImageModal = ({ modalOpen, merchantInfo, setModalOpen }) => {
     fetchImage();
   }, [merchantInfo]);
 
+  const SendEmail=async(action)=>{
+    // e.preventDefault();
+    console.log("Leo",action);
+    
+    try{ 
+      const response=await axios.post(`${BASE_URL}SendEmail`,{
+        adminId:storedUserId,
+        toEmailId:merchantInfo.creatorEmailID,
+          body:`your form has been ${action}`,
+          subject:`Merchat Approval or Disapproval information`
+      })
+      console.log("response",response);
+       if(response?.status==200){
+        const responseData=await response?.data;
+        toast.success(responseData?.message,{
+          position:'top-center'
+        });
+        setAction('');
+        console.log("response",response.data.message);
+        
+       }
+      else{
+      }
+
+     }catch(error){
+      toast.error(error.message)
+
+      console.log("error",error);
+     }
+  }
+
 
   function handleClose() {
     setModalOpen(false);
 
   }
-  const handleApprove = async (action) => {
-    setLoading(true);
-
-
+  const handleApprove = async (act) => {
+    // e.preventDefault();
+    setAction(act);
+    if(act=='approve'?setLoading(true):setDisLoading(true));
     try {
       const patchData = [
         {
           path: "/status",
           op: "replace",
-          value: action == "approve" ? true : false,
+          value: act == "approve" ? true : false,
         },
         {
           path: "/caseOwner",
@@ -69,19 +102,27 @@ const ViewImageModal = ({ modalOpen, merchantInfo, setModalOpen }) => {
         },
 
       ];
-      const response = await axios.patch(`${BASE_URL}PatchMerchant?Email=${merchantId.email}`, patchData);
-      console.log("reponse", response.data.message);
-      toast.success("Status update successfully", {
-        position: 'top-center'
-      });
-      setLoading(false);
+      const response = await axios.patch(`${BASE_URL}PatchMerchant?Email=${merchantInfo.email}`, patchData);
+      console.log("reponse", response);
+      if(response?.status==200){
+        toast.success("Status update successfully", {
+          position: 'top-center'
+        });
+        if(action=='approve'?setLoading(false):setDisLoading(false));
+        setModalOpen(false);
+        SendEmail(act);
+        
 
-      setModalOpen(false);
+      }
+      
+
     } catch (error) {
       toast.error("somethings wrong please try again");
       console.log("error", error);
-      setLoading(false);
+      if(action=='approve'?setLoading(false):setDisLoading(false));
 
+    }finally{
+      setImageData('');
     }
 
   }
@@ -112,7 +153,7 @@ const ViewImageModal = ({ modalOpen, merchantInfo, setModalOpen }) => {
           <Box mt={2} display="flex" style={{ float: 'right' }}>
             <Button variant="contained" color="success" onClick={() => handleApprove('approve')} disabled={loading}> {loading ? <CircularProgress size={20} color="success" /> : 'Approve'}
             </Button>&nbsp;
-            <Button variant="contained" color="error" onClick={() => handleApprove('disapprove')} disabled={loading}>{loading ? <CircularProgress size={20} color="success" /> : 'Disapprove'}
+            <Button variant="contained" color="error" onClick={() => handleApprove('disapprove')} disabled={disLoading}>{disLoading? <CircularProgress size={20} color="success" /> : 'Disapprove'}
             </Button>
           </Box>
         </Box>

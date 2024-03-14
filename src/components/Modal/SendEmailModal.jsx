@@ -79,7 +79,8 @@ function SendEmailModal({rowData,emailModalOpen,setEmailModalOpen,handleCloseEma
             toast.error(error.message)
 
             console.log("error",error);
-           }finally{
+           }
+           finally{
             setLoading(false);
            }
 

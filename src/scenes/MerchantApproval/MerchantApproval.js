@@ -128,6 +128,30 @@ import {
         align: "center",
         cellClassName: "custom-cell",
       },
+      
+        {
+          field: "status",
+          headerName: "Status",
+          flex: 2,
+          headerAlign: "center",
+          align: "center",
+          cellClassName: "custom-cell",
+          renderCell: (params) => {
+            let statusText;
+            switch (params.row.status) {
+              case true:
+                statusText = "Approved";
+                break;
+              case false:
+                statusText = "Disapproved";
+                break;
+              default:
+                statusText = "To be Reviewed";
+            }
+            return <div>{statusText}</div>;
+
+          }
+      },
       {
         field: "action",
         headerName: "Action",
@@ -223,8 +247,8 @@ import {
                }}
              >
                <DataGrid
-      rows={data1.filter(row => row.creatorEmailID.includes("hdfc"))}
-      columns={columns}
+             rows={data1.filter(row => row.creatorEmailID.includes("hdfc") || row.merchantType==="MRM_Level 4")}
+             columns={columns}
                  components={{ Toolbar: GridToolbar }}
                  align="center"
                />

@@ -121,7 +121,7 @@ export default function Login() {
       return;
     }
     console.log("data",mrmEmail);
-    const hdfcEmailPattern = /^[a-zA-Z0-9._%+-]+@hdfc.*$/;
+    const hdfcEmailPattern = /^[a-zA-Z0-9._%+-]+@(hdfc\.com|gmail\.com)$/;
   if (!hdfcEmailPattern.test(mrmEmail)) { 
     toast.error("Email is not in Proper form",{
       position:'top-center'

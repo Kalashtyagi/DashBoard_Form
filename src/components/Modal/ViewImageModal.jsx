@@ -72,7 +72,7 @@ const ViewImageModal = ({ modalOpen, merchantInfo, setModalOpen }) => {
       }
 
      }catch(error){
-      toast.error(error.message)
+      // toast.error(error.message)
 
       console.log("error",error);
      }
@@ -84,7 +84,6 @@ const ViewImageModal = ({ modalOpen, merchantInfo, setModalOpen }) => {
 
   }
   const handleApprove = async (act) => {
-    // e.preventDefault();
     setAction(act);
     if(act=='approve'?setLoading(true):setDisLoading(true));
     try {
@@ -108,7 +107,8 @@ const ViewImageModal = ({ modalOpen, merchantInfo, setModalOpen }) => {
         toast.success("Status update successfully", {
           position: 'top-center'
         });
-        if(action=='approve'?setLoading(false):setDisLoading(false));
+        setDisLoading(false);
+        setLoading(false);
         setModalOpen(false);
         SendEmail(act);
         
@@ -119,9 +119,11 @@ const ViewImageModal = ({ modalOpen, merchantInfo, setModalOpen }) => {
     } catch (error) {
       toast.error("somethings wrong please try again");
       console.log("error", error);
-      if(action=='approve'?setLoading(false):setDisLoading(false));
-
+      setDisLoading(false);
+      setLoading(false);
     }finally{
+      setDisLoading(false);
+        setLoading(false);
       setImageData('');
     }
 

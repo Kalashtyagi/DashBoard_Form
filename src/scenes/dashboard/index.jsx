@@ -214,7 +214,7 @@ const Dashboard = () => {
         {/* HEADER */}
         <Box
           className="header"
-          style={{ backgroundColor: isDark ? "#fcfcfc" : "#111b2d" }}
+          style={{ backgroundColor: isDark ? "#fcfcfc" : "#111b2d"}}
         >
           <Header title="DASHBOARD" subtitle="New Merchant-overview" />
         </Box>
@@ -319,7 +319,7 @@ const Dashboard = () => {
               </div>
             </div>
 
-            <div className="merchantLog" style={{ marginTop: "-70px" }}>
+            <div className="merchantLog" style={{ marginTop: "-70px",width:isCollapsed?"500px":"450px" }}>
               <h6
                 style={{
                   textAlign: "center",

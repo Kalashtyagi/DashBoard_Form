@@ -73,6 +73,7 @@ function MrmScreen(){
             position:'top-center'
           });
           reset();
+          refetch();
           setLoading(false);
   
         } 
@@ -104,7 +105,7 @@ function MrmScreen(){
 
     const { isCollapsed } = useContext(SidebarContext);
     const isNonMobile = useMediaQuery("(min-width:600px)");
-    const {isLoading,error,data:data1}=useQuery({queryKey:["merchant"],
+    const {isLoading,error,data:data1,refetch}=useQuery({queryKey:["merchant"],
     queryFn:fetchData1,
   })
     const {
@@ -124,14 +125,7 @@ function MrmScreen(){
     
       };
       const columns = [
-        {
-          field: "merchantId",
-          headerName: "Id",
-          flex: 3,
-          headerAlign: "center",
-          align: "center",
-          cellClassName: "custom-cell",
-        },
+        
         {
           field: "leagalName",
           headerName: "Leagal Name",
@@ -159,14 +153,7 @@ function MrmScreen(){
           cellClassName: "custom-cell",
         },
        
-        {
-          field: "merchantType",
-          headerName: "Merchant Type",
-          flex: 2,
-          headerAlign: "center",
-          align: "center",
-          cellClassName: "custom-cell",
-        },
+      
         {
           field: "caseOwner",
           headerName: "Owner ID",
@@ -175,6 +162,29 @@ function MrmScreen(){
           align: "center",
           cellClassName: "custom-cell",
         },
+        {
+          field: "status",
+          headerName: "Status",
+          flex: 2,
+          headerAlign: "center",
+          align: "center",
+          cellClassName: "custom-cell",
+          renderCell: (params) => {
+            let statusText;
+            switch (params.row.status) {
+              case true:
+                statusText = "Approved";
+                break;
+              case false:
+                statusText = "Disapproved";
+                break;
+              default:
+                statusText = "To be Reviewed";
+            }
+            return <div>{statusText}</div>;
+
+          }
+      },
         {
           field: "action",
           headerName: "Action",

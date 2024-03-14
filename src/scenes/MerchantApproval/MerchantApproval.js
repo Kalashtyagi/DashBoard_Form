@@ -21,17 +21,14 @@ import {
   import { BASE_URL } from "../../apiConfig";
   import axios from "axios";
   import { ToastContainer, toast } from "react-toastify";
-  import EmailIcon from "@mui/icons-material/Email";
-  import { EmailSharp } from "@mui/icons-material";
-  import EditModal from "../../components/Modal/EditModal";
-  import SendEmailModal from "../../components/Modal/SendEmailModal";
+ 
   import { useQuery } from "@tanstack/react-query";
   import CircularProgress from "@mui/material/CircularProgress";
   import Skeleton from '@mui/material/Skeleton';
   import VisibilityIcon from '@mui/icons-material/Visibility';
   import { DarkContext } from "../global/DarkBar";
   import ViewImageModal from "../../components/Modal/ViewImageModal";
-  
+  import EditModal from "../../components/Modal/EditModal";
   const fetchData = async () => {
     const response = await fetch(`${BASE_URL}GetallMerchant`);
     const result = await response.json();
@@ -78,18 +75,11 @@ import {
     }
   
     const columns = [
-      {
-        field: "merchantId",
-        headerName: "Id",
-        flex: 4,
-        headerAlign: "center",
-        align: "center",
-        cellClassName: "custom-cell",
-      },
+     
       {
         field: "leagalName",
         headerName: "Leagal Name",
-        flex: 1,
+        flex: 2,
         headerAlign: "center",
         align: "center",
         cellClassName: "custom-cell",
@@ -175,10 +165,10 @@ import {
       },
     
     ];
-    const handleEdit = (row) => {
-      setSelectedRow(row);
-      setEditModalOpen(true);
-    };
+    // const handleEdit = (row) => {
+    //   setSelectedRow(row);
+    //   setEditModalOpen(true);
+    // };
   
     const handleCloseModal = () => {
       setEditModalOpen(false);
@@ -262,9 +252,9 @@ import {
           editModalOpen={editModalOpen}
           setEditModalOpen={setEditModalOpen}
           handleCloseModal={handleCloseModal}
-        />
-
         /> */}
+
+        {/* /> */}
       </Box>
     );
   };

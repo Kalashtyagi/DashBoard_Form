@@ -17,7 +17,7 @@ import axios from "axios"; // Import Axios
 import { ToastContainer, toast } from "react-toastify";
 
 
-const ViewImageModal = ({ modalOpen, merchantInfo, setModalOpen }) => {
+const ViewImageModal = ({ modalOpen, merchantInfo, setModalOpen,refetchData}) => {
   const [imageData, setImageData] = useState('');
   const [statusValue, setStatusValue] = useState('');
   const storedUserId = sessionStorage.getItem("userId");
@@ -107,6 +107,7 @@ const ViewImageModal = ({ modalOpen, merchantInfo, setModalOpen }) => {
         toast.success("Status update successfully", {
           position: 'top-center'
         });
+        refetchData();
         setDisLoading(false);
         setLoading(false);
         setModalOpen(false);

@@ -1,7 +1,7 @@
 
 import React, { useState, useContext } from "react";
 import { ProSidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
-import { Box, IconButton, Typography, useTheme } from "@mui/material";
+import { Box, IconButton, Tooltip, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
 import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../../theme";
@@ -51,10 +51,10 @@ const Sidebar = () => {
     setIsCollapsed(!isCollapsed);
   };
 
-  const handleLogOut=async()=>{
+  const handleLogOut = async () => {
     sessionStorage.clear();
-    toast.success("successfully Logout",{
-      position:'top-center'
+    toast.success("successfully Logout", {
+      position: 'top-center'
     })
     setTimeout(() => {
       navigate("/");
@@ -128,14 +128,15 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-
-            <Typography
-              variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 30px" }}
-            >
-              Data
-            </Typography>
+                <Typography variant="h6" color={colors.grey[300]} sx={{ m: "15px 0 5px 30px" }}>
+  {isCollapsed ? (
+    <Tooltip title="Merchant Information" arrow>
+      <span>Mer. Info</span>
+    </Tooltip>
+  ) : (
+    "Merchant Information"
+  )}
+</Typography>
             <Item
               title="Merchant Information"
               to="/merchantList"
@@ -143,21 +144,10 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-            
-            <Item
-              title="Form Information"
-              to="/formInformation"
-              icon={<FeedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Merchant Submission"
-              to="/merchantForm"
-              icon={<ArticleIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
+
+
+
+
             <Item
               title="Merchant Approval"
               to="/merchantApproval"
@@ -165,21 +155,15 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-
-            <Typography
-              variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 30px" }}
-            >
-              Pages
-            </Typography>
             <Item
-              title="Add Merchant"
+              title="Create Merchant"
               to="/form"
               icon={<PersonAddIcon />}
               selected={selected}
               setSelected={setSelected}
             />
+
+
 
             <Typography
               variant="h6"
@@ -188,21 +172,67 @@ const Sidebar = () => {
             >
               Forms
             </Typography>
+
             <Item
-              title="Add Form"
+              title="Form Information"
+              to="/formInformation"
+              icon={<FeedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Merchant Form Submission"
+              to="/merchantForm"
+              icon={<ArticleIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Create Form"
               to="/saqs"
               icon={<AddToPhotosIcon />}
               selected={selected}
               setSelected={setSelected}
             />
-
+           <Typography
+              variant="h6"
+              color={colors.grey[300]}
+              sx={{ m: "15px 0 5px 30px" }}
+            >
+              Logs
+            </Typography>
+            <Item
+              title="Admin Log"
+              to="/adminLog"
+              icon={<PersonAddIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Merchant Log"
+              to="/merchantLog"
+              icon={<PersonAddIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            
             <Typography
               variant="h6"
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 29px" }}
             >
-              Accounts
+              {isCollapsed?(
+                <Tooltip title="Accounts" arrow>
+                  <span>Accounts</span>
+
+                </Tooltip>):(
+                  "Accounts"
+
+                )}
             </Typography>
+
+            
+           
             <Item
               title="Create Admin"
               to="/createAdmin"
@@ -224,19 +254,32 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-            <div   onClick={handleLogOut}>
-            <Item
-              title="Sign Out"
-              // to="/"
-              icon={<LogoutIcon />}
+            {/* <div onClick={handleLogOut}>
+              <Typography>
+              <Item
+                title="Sign Out"
+                // to="/"
+                
               // selected={selected}
               // setSelected={setSelected}
-            />
-            </div>
+              />
+              </Typography>
+             
+            </div> */}
+            
+            <Typography
+            onClick={handleLogOut}
+              variant="h6"
+              color={colors.grey[300]}
+              sx={{ m: "15px 0 5px 29px",cursor:"pointer" }}
+            >
+              <LogoutIcon/>
+              Sign out
+            </Typography>
           </Box>
         </Menu>
       </ProSidebar>
-      <ToastContainer/>
+      <ToastContainer />
     </Box>
   );
 };

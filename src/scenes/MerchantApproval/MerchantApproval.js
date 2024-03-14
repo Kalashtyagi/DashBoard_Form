@@ -29,6 +29,7 @@ import {
   import { DarkContext } from "../global/DarkBar";
   import ViewImageModal from "../../components/Modal/ViewImageModal";
   import EditModal from "../../components/Modal/EditModal";
+  import Table from "../../components/Table";
   const fetchData = async () => {
     const response = await fetch(`${BASE_URL}GetallMerchant`);
     const result = await response.json();
@@ -49,8 +50,9 @@ import {
     const [emailRow, setEmailRow] = useState(null);
     const[modalOpen,setModalOpen]=useState(false);
     const [merchantInfo,setMerchantInfo]=useState('');
+
     
-    const {isLoading,error,data:data1}=useQuery({queryKey:["merchant"],
+    const {isLoading,error,data:data1,refetch}=useQuery({queryKey:["merchant"],
     queryFn:fetchData,
   })
     
@@ -72,6 +74,10 @@ import {
         setMerchantInfo(row);
         setModalOpen(true);
 
+    }
+    const handleEdit = (row) => {
+      setSelectedRow(row);
+      setEditModalOpen(true);
     }
   
     const columns = [
@@ -165,10 +171,7 @@ import {
       },
     
     ];
-    // const handleEdit = (row) => {
-    //   setSelectedRow(row);
-    //   setEditModalOpen(true);
-    // };
+    ;
   
     const handleCloseModal = () => {
       setEditModalOpen(false);
@@ -196,65 +199,29 @@ import {
        
         {isLoading &&   <CircularProgress color="secondary"style={{marginLeft:'45%',marginTop:'200px'}}  />}
   
-        {data1 &&(
-               <Box
-               m="40px 0 0 0"
-               height="75vh"
-               sx={{
-                 "& .MuiDataGrid-root": {
-                   border: "none",
-                   overflowX: "auto",
-                 },
-                 "& .MuiDataGrid-cell": {
-                   borderBottom: "none",
-                 },
-                 "& .name-column--cell": {
-                   color: colors.greenAccent[300],
-                 },
-                 "& .MuiDataGrid-columnHeaders": {
-                   backgroundColor: colors.blueAccent[700],
-                   borderBottom: "none",
-                 },
-                 "& .MuiDataGrid-virtualScroller": {
-                   backgroundColor: colors.primary[400],
-                 },
-                 "& .MuiDataGrid-footerContainer": {
-                   borderTop: "none",
-                   backgroundColor: colors.blueAccent[700],
-                 },
-                 "& .MuiCheckbox-root": {
-                   color: `${colors.greenAccent[200]} !important`,
-                 },
-                 "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
-                   color: `${colors.grey[100]} !important`,
-                 },
-                 "& .custom-cell": {
-                   textAlign: "center",
-                 },
-                 "& .MuiDataGrid-columnHeaderTitle": {
-                   fontSize: "15px",
-                 },
-               }}
-             >
-               <DataGrid
-             rows={data1.filter(row => row.creatorEmailID.includes("hdfc") || row.merchantType==="MRM_Level 4")}
-             columns={columns}
-                 components={{ Toolbar: GridToolbar }}
-                 align="center"
-               />
-             </Box>
-        )}
-        <ViewImageModal modalOpen={modalOpen} merchantInfo={merchantInfo} setModalOpen={setModalOpen}
+        {data1 && (
+  <Table
+    rows={data1.filter(row => {
+      if (row.creatorEmailID && typeof row.creatorEmailID === 'string') {
+        return row.creatorEmailID.includes("hdfc") || row.merchantType === "MRM_Level 4";
+      }
+      return false; // Filter out rows where creatorEmailID is not a string or undefined
+    })}
+    columns={columns}
+  />
+)}
+        <ViewImageModal modalOpen={modalOpen} merchantInfo={merchantInfo} setModalOpen={setModalOpen} refetchData={refetch}
         />
+         <EditModal
+        selectedItem={selectedRow}
+        editModalOpen={editModalOpen}
+        setEditModalOpen={setEditModalOpen}
+        handleCloseModal={handleCloseModal}
+        refetch={refetch}
+      />
         
-        {/* <EditModal
-          selectedItem={selectedRow}
-          editModalOpen={editModalOpen}
-          setEditModalOpen={setEditModalOpen}
-          handleCloseModal={handleCloseModal}
-        /> */}
+        
 
-        {/* /> */}
       </Box>
     );
   };

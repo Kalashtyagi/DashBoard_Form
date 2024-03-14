@@ -14,7 +14,7 @@ import { toast } from "react-toastify";
 
 
 
-function ApproveModal({ anchorEl, rowData, app, handlePopoverClose }) {
+function ApproveModal({ anchorEl, rowData, app, handlePopoverClose,refetch}) {
     const [reviewComments, setReviewComments] = useState('');
     const storedUserId = sessionStorage.getItem("userId");
     const [loading, setLoading] = useState(false);
@@ -56,6 +56,7 @@ function ApproveModal({ anchorEl, rowData, app, handlePopoverClose }) {
                 position:'top-center'
             });
             setLoading(false);
+            refetch();
             handlePopoverClose();
             setReviewComments('');
         } catch (error) {

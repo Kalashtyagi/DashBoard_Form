@@ -21,6 +21,8 @@ import ProtectedRoute from "./utils/ProtectedRoute";
 import Pdf from "./components/pdf/pdf";
 import MrmScreen from "./scenes/MrmScreen/MrmScreen";
 import MerchantApproval from "./scenes/MerchantApproval/MerchantApproval";
+import MerchantLog from "./scenes/logs/MerchantLog";
+import AdminLog from "./scenes/logs/AdminLog";
 function App() {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
@@ -76,6 +78,8 @@ function App() {
               <Route path="/pdf" element={<Pdf/>}/>
               <Route path="/mrm" element={<MrmScreen/>}/>
               <Route path="merchantApproval" element={<MerchantApproval/>}/>
+              <Route path="/merchantLog" element={<MerchantLog/>}/>
+              <Route path="/adminLog" element={<AdminLog/>}/>
             </Routes>
           </main>
         </div>

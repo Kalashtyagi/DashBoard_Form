@@ -6,7 +6,7 @@ import { useContext } from "react";
 import { ToastClassName,ToastContainer,toast } from "react-toastify"
 import { DarkContext } from "../../scenes/global/DarkBar";
 
-function EditModal({ selectedItem, editModalOpen, setEditModalOpen, handleCloseModal }) { 
+function EditModal({ selectedItem, editModalOpen, setEditModalOpen, handleCloseModal,refetch }) { 
   const[loading,setLoading]=useState(false);
   console.log("selectedIntem",selectedItem);
 
@@ -27,6 +27,15 @@ function EditModal({ selectedItem, editModalOpen, setEditModalOpen, handleCloseM
     })
 
   },[selectedItem])
+  const handleCancel=()=>{
+    setEditData({
+      leagalName:'',
+      merchantType:'',
+      email:''
+    })
+
+    handleCloseModal();
+  }
 
   const handleEditSubmit = async (email) => { 
     setLoading(true);
@@ -63,8 +72,10 @@ function EditModal({ selectedItem, editModalOpen, setEditModalOpen, handleCloseM
           toast.success("Data update Successfully",{
             position:'top-center'
           });
+          refetch();
 
         }
+        
         // const result=await response.data;
         // setLoading(false);
        
@@ -155,7 +166,7 @@ function EditModal({ selectedItem, editModalOpen, setEditModalOpen, handleCloseM
             variant="contained"
             color="error"
             style={{ marginLeft: 8 }}
-            onClick={handleCloseModal}
+            onClick={handleCancel}
           >
             Cancel
           </Button>

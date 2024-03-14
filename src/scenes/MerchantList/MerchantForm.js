@@ -19,8 +19,7 @@ import { pdfContext } from "../../Context/pdfcontext";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import ApproveModal from "../../components/Modal/ApproveModal";
-// import CircularProgress from "@mui/material/CircularProgress";
-
+import Table from "../../components/Table";
 
 
 
@@ -34,9 +33,9 @@ const fetchData = async () => {
 
 const MerchantForm = () => {
   const{pdfData,setPdfData}=useContext(pdfContext);
-  console.log(pdfData.merchantId);
+  const[pdfLoader,setPdfLoader]=useState(false);
   const navigate=useNavigate();
-  const {isLoading,error,data:MerchantSubmissionsData}=useQuery({queryKey:["SubmissionData"],
+  const {isLoading,error,data:MerchantSubmissionsData,refetch}=useQuery({queryKey:["SubmissionData"],
   queryFn:fetchData,
 })
   const [data, setData] = useState([]);
@@ -111,6 +110,7 @@ const MerchantForm = () => {
   };
   const handlePdf = async (row) => {
     console.log("row",row);
+    setPdfLoader(true);
     try {
       const response = await axios.get(
         `${BASE_URL}DownloadPDF?FormId=${row.formID}&MerchantId=${row.merchantID}`,
@@ -130,17 +130,18 @@ const MerchantForm = () => {
       link.click();
         window.URL.revokeObjectURL(url);
       document.body.removeChild(link);
+      toast.success("pdf downloas successfully",{
+        position:'top-center'
+      })
+      setPdfLoader(false);
     } catch (error) {
       console.error('Error downloading file:', error);
+      setPdfLoader( false);
     }
   };
 
 
-  // const handlePdf=(row)=>{  
-  //   setPdfData({...pdfData,formID:row.formID,merchantID:row.merchantID})
-  //   navigate('/pdf')
-  // }
-  // console.log("pdfdt",pdfData);
+
   
 
   const columns = [
@@ -177,14 +178,7 @@ const MerchantForm = () => {
       align: "center",
       cellClassName: "custom-cell",
     },
-    // {
-    //   field: "submissionDate",
-    //   headerName: "Submission Date",
-    //   flex: 3,
-    //   headerAlign: "center",
-    //   align: "center",
-    //   cellClassName: "custom-cell",
-    // },
+   
     {
       field: "isFinalSubmission",
       headerName: "Is Final Submission",
@@ -228,6 +222,7 @@ const MerchantForm = () => {
               Disapprove
             </Button>
             &nbsp;&nbsp;
+            {pdfLoader ?<CircularProgress size={20} color='success'/>:
             <Button
               size="small"
               variant="contained"
@@ -235,7 +230,7 @@ const MerchantForm = () => {
             >
               {" "}
               <DownloadIcon />
-            </Button>
+            </Button>}
           </div>
         );
       },
@@ -254,57 +249,12 @@ const MerchantForm = () => {
     >
       <Header title="Merchant Form Submission" />
       {isLoading &&   <CircularProgress color="secondary"style={{marginLeft:'45%',marginTop:'200px'}}  />}
-      {MerchantSubmissionsData && (
-  <Box
-  m="40px 0 0 0"
-  height="75vh"
-  sx={{
-    "& .MuiDataGrid-root": {
-      border: "none",
-      overflowX: "auto",
-    },
-    "& .MuiDataGrid-cell": {
-      borderBottom: "none",
-    },
-    "& .name-column--cell": {
-      color: colors.greenAccent[300],
-    },
-    "& .MuiDataGrid-columnHeaders": {
-      backgroundColor: colors.blueAccent[700],
-      borderBottom: "none",
-    },
-    "& .MuiDataGrid-virtualScroller": {
-      backgroundColor: colors.primary[400],
-    },
-    "& .MuiDataGrid-footerContainer": {
-      borderTop: "none",
-      backgroundColor: colors.blueAccent[700],
-    },
-    "& .MuiCheckbox-root": {
-      color: `${colors.greenAccent[200]} !important`,
-    },
-    "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
-      color: `${colors.grey[100]} !important`,
-    },
-    "& .custom-cell": {
-      textAlign: "center",
-     
-    },
-    "& .MuiDataGrid-columnHeaderTitle": {
-      fontSize: "15px",
-    },
-  }}
->
-  <DataGrid
-    rows={MerchantSubmissionsData}
-    columns={columns}
-    components={{ Toolbar: GridToolbar }}
-    
-  />
-</Box>
+      {MerchantSubmissionsData && (<Table     rows={MerchantSubmissionsData}
+    columns={columns}/>
+ 
       )}
-    <ApproveModal  anchorEl={anchorEl} rowData={rowData} app={app} handlePopoverClose={handlePopoverClose}/>
-      {/* <ApprovePopOver  anchorEl={anchorEl} rowData={rowData} app={app} handlePopoverClose={handlePopoverClose} /> */}
+    <ApproveModal  anchorEl={anchorEl} rowData={rowData} app={app} handlePopoverClose={handlePopoverClose} refetch={refetch}/>
+      
 
      
       <ToastContainer />

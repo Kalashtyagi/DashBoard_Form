@@ -30,6 +30,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Skeleton from '@mui/material/Skeleton';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { DarkContext } from "../global/DarkBar";
+import Table from "../../components/Table";
 
 
 const fetchData = async () => {
@@ -51,7 +52,8 @@ const Contacts = () => {
   const [formId, setFormId] = useState([]);
   const [emailRow, setEmailRow] = useState(null);
   
-  const {isLoading,error,data:data1}=useQuery({queryKey:["merchant"],
+  
+  const {isLoading,error,data:data1,refetch}=useQuery({queryKey:["merchant"],
   queryFn:fetchData,
 })
   
@@ -76,18 +78,11 @@ const Contacts = () => {
   };
 
   const columns = [
-    {
-      field: "merchantId",
-      headerName: "Id",
-      flex: 4,
-      headerAlign: "center",
-      align: "center",
-      cellClassName: "custom-cell",
-    },
+   
     {
       field: "leagalName",
       headerName: "Leagal Name",
-      flex: 1,
+      flex: 2,
       headerAlign: "center",
       align: "center",
       cellClassName: "custom-cell",
@@ -152,6 +147,8 @@ const Contacts = () => {
       headerName: "Sent Email",
       flex: 2,
       headerAlign: "center",
+      align: "center",
+      cellClassName: "custom-cell",
       renderCell: (params) => (
         <div
           style={{ cursor: "pointer", textAlign: "center" }}
@@ -195,60 +192,14 @@ const Contacts = () => {
      
       {isLoading &&   <CircularProgress color="secondary"style={{marginLeft:'45%',marginTop:'200px'}}  />}
 
-      {data1 &&(
-             <Box
-             m="40px 0 0 0"
-             height="75vh"
-             sx={{
-               "& .MuiDataGrid-root": {
-                 border: "none",
-                 overflowX: "auto",
-               },
-               "& .MuiDataGrid-cell": {
-                 borderBottom: "none",
-               },
-               "& .name-column--cell": {
-                 color: colors.greenAccent[300],
-               },
-               "& .MuiDataGrid-columnHeaders": {
-                 backgroundColor: colors.blueAccent[700],
-                 borderBottom: "none",
-               },
-               "& .MuiDataGrid-virtualScroller": {
-                 backgroundColor: colors.primary[400],
-               },
-               "& .MuiDataGrid-footerContainer": {
-                 borderTop: "none",
-                 backgroundColor: colors.blueAccent[700],
-               },
-               "& .MuiCheckbox-root": {
-                 color: `${colors.greenAccent[200]} !important`,
-               },
-               "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
-                 color: `${colors.grey[100]} !important`,
-               },
-               "& .custom-cell": {
-                 textAlign: "center",
-               },
-               "& .MuiDataGrid-columnHeaderTitle": {
-                 fontSize: "15px",
-               },
-             }}
-           >
-             <DataGrid
-               rows={data1}
-               columns={columns}
-               components={{ Toolbar: GridToolbar }}
-               align="center"
-             />
-           </Box>
-      )}
+      {data1 &&( <Table   rows={data1}columns={columns}/>)}
       
       <EditModal
         selectedItem={selectedRow}
         editModalOpen={editModalOpen}
         setEditModalOpen={setEditModalOpen}
         handleCloseModal={handleCloseModal}
+        refetch={refetch}
       />
       <SendEmailModal
         rowData={emailRow}

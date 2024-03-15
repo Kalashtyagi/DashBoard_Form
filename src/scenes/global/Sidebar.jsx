@@ -59,7 +59,7 @@ const Sidebar = () => {
     setTimeout(() => {
       navigate("/");
 
-    }, 600);
+    }, 900);
   }
   return (
     <Box

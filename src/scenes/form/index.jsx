@@ -124,7 +124,7 @@ const Form = () => {
       formData.append("file", selectedFile);
 
       const response = await axios.post(
-        $`{BASE_URL}BulkUploadMerchan`,
+        `${BASE_URL}BulkUploadMerchan`,
         formData,
         {
           headers: {

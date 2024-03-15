@@ -38,6 +38,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import ApproveModal from "../../components/Modal/ApproveModal";
 import "./index.css";
 
+
 const Dashboard = () => {
   console.log(process.env.REACT_APP_BASE_URL, "d");
   const storedUserId = sessionStorage.getItem("userId");
@@ -99,17 +100,7 @@ const Dashboard = () => {
       console.log("error", error);
     }
   };
-  const getAllMerchantLogs = async () => {
-    try {
-      const response = await fetch(`${BASE_URL}GetallMerchantUpdateLogs`);
-      const result = await response.json();
-      if (result?.statusCode === 200) {
-        setMerchantLogs(result?.data);
-      }
-    } catch (error) {
-      console.log("error", error);
-    }
-  };
+  
   const openViewMore = (item) => {
     setOpen(true);
     setViewMoreData([item]);
@@ -119,7 +110,6 @@ const Dashboard = () => {
   useEffect(() => {
     fetchData();
     getAllMerchant();
-    getAllMerchantLogs();
   }, []);
   useEffect(() => {
     const matchingData = [];
@@ -176,23 +166,16 @@ const Dashboard = () => {
       link.click();
       window.URL.revokeObjectURL(url);
       document.body.removeChild(link);
+      toast.success("pdf Download Successfully",{
+        position:'top-center'
+      })
     } catch (error) {
+      toast.error("something went wrong plz try again");
       console.error("Error downloading file:", error);
     }
   };
-  const adminLogs = async () => {
-    try {
-      const response = await fetch(`${BASE_URL}GetAllAdminUpdateLogs`);
-      const result = await response.json();
-      setAllAdminLogs(result.data);
-    } catch (error) {
-      console.log("error", error);
-    }
-  };
-  useEffect(() => {
-    adminLogs();
-  }, []);
-  console.log("adminlogs", allAdminLogs);
+ 
+  console.log("notMatchingData",notMatchingData);
   return (
     <>
       {/* {data.length === 0 ? (
@@ -332,20 +315,17 @@ const Dashboard = () => {
 
           {/* ROW 3 */}
 
-          <Box
+          {/* <Box
             gridColumn="span 12"
             gridRow="span 2"
             position="relative"
             overflow="auto"
             backgroundColor={colors.primary[400]}
           >
-            {/* Fixed "New Merchant" text */}
             <Typography
               variant="h4"
               fontWeight="700"
-              // textAlign="center"
-              // mt="20px"
-              // mb="20px"
+              
               padding='auto'
               position="sticky"
               top="0"
@@ -419,95 +399,12 @@ const Dashboard = () => {
             
             )}
 
-          </Box>
+          </Box> */}
           
         </Box>
 
         <ApproveModal anchorEl={anchorEl} rowData={selectedItem} app={app} handlePopoverClose={handlePopoverClose} />
-        <Modal
-          open={open}
-          onClose={handleCloseModal}
-          aria-labelledby="edit-modal-title"
-          aria-describedby="edit-modal-description"
-        >
-          <Box
-            sx={{
-              position: "absolute",
-              width: 400,
-              bgcolor: "background.paper",
-              boxShadow: 24,
-              p: 4,
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-            }}
-          >
-            <TextField
-              label="logId"
-              name="logId"
-              fullWidth
-              value={viewMoreData[0]?.logId}
-              InputLabelProps={{
-                style: {
-                  color: isDark ? "black" : "white",
-                },
-              }}
-              margin="normal"
-            />
-            <TextField
-              label={viewMoreData[0]?.merchantId ? "MerchantID" : "AdminID"}
-              name={viewMoreData[0]?.merchantId ? "merchantId" : "adminId"}
-              fullWidth
-              value={viewMoreData[0]?.merchantId || viewMoreData[0]?.adminId}
-              margin="normal"
-              InputLabelProps={{
-                style: {
-                  color: isDark ? "black" : "white",
-                },
-              }}
-            />
-            <TextField
-              label="new Value"
-              name="newValue"
-              value={viewMoreData[0]?.newValue}
-              fullWidth
-              margin="normal"
-              InputLabelProps={{
-                style: {
-                  color: isDark ? "black" : "white",
-                },
-              }}
-            />
-            <TextField
-              label="old Value"
-              name="oldValue"
-              value={viewMoreData[0]?.oldValue}
-              InputLabelProps={{
-                style: {
-                  color: isDark ? "black" : "white",
-                },
-              }}
-              fullWidth
-              margin="normal"
-            />
-            <TextField
-              label="update Field"
-              // disabled
-
-              name="updateField"
-              value={
-                viewMoreData[0]?.updatedField || viewMoreData[0]?.updateField
-              }
-              InputLabelProps={{
-                style: {
-                  color: isDark ? "black" : "white",
-                },
-              }}
-              fullWidth
-              margin="normal"
-            />
-          </Box>
-        </Modal>
+       
         <ToastContainer />
       </Box>
       {/* )} */}

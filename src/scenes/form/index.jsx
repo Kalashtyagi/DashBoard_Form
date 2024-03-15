@@ -157,7 +157,7 @@ const Form = () => {
       >
         <Accordion
           defaultExpanded
-          style={{ backgroundColor: isDark ? "white" : "#2e3b47" }}
+          style={{ backgroundColor: isDark ? "white" : "rgba(20,27,45,255)" }}
         >
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
@@ -356,7 +356,7 @@ const Form = () => {
       >
         <Accordion
           // defaultExpanded
-          style={{ backgroundColor: isDark ? "white" : "#2e3b47" }}
+          style={{ backgroundColor: isDark ? "white" : "rgba(20,27,45,255)" }}
         >
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}

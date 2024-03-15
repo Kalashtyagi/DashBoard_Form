@@ -14,7 +14,7 @@ function EditModal({ selectedItem, editModalOpen, setEditModalOpen, handleCloseM
     
     leagalName:"",
     merchantType:"",
-    phone:"",
+    dbaName:"",
     email:"",
   });
   const { isDark } = useContext(DarkContext);
@@ -22,7 +22,7 @@ function EditModal({ selectedItem, editModalOpen, setEditModalOpen, handleCloseM
     setEditData({ 
          leagalName:selectedItem?.leagalName,
          merchantType:selectedItem?.merchantType,
-         phone:selectedItem?.phone,
+         dbaName:selectedItem?.dbaName,
          email:selectedItem?.email
     })
 
@@ -31,7 +31,8 @@ function EditModal({ selectedItem, editModalOpen, setEditModalOpen, handleCloseM
     setEditData({
       leagalName:'',
       merchantType:'',
-      email:''
+      email:'',
+      dbaName:''
     })
 
     handleCloseModal();
@@ -53,6 +54,13 @@ function EditModal({ selectedItem, editModalOpen, setEditModalOpen, handleCloseM
               op: "replace",
               from: "string",
               value:`${editData?.email}`, 
+            },
+           
+            {
+              path: "/dbaName",
+              op: "replace",
+              from: "string",
+              value:`${editData?.dbaName}`, 
             },
            
            
@@ -90,6 +98,7 @@ function EditModal({ selectedItem, editModalOpen, setEditModalOpen, handleCloseM
     }
 };
   return (
+    <>
     <Modal
       open={editModalOpen}
       onClose={handleCloseModal}
@@ -137,6 +146,20 @@ function EditModal({ selectedItem, editModalOpen, setEditModalOpen, handleCloseM
           margin="normal"
         />
          <TextField
+          label="Dba Name"
+          name="dbaName"
+          value={editData.dbaName}
+          onChange={(e) => setEditData({ ...editData, [e.target.name]: e.target.value })}
+          fullWidth
+          InputLabelProps={{
+            style: {
+              color: isDark ? "black" : "white",
+            },
+          }}
+
+          margin="normal"
+        />
+         <TextField
           label="MerchantType"
           name="merchantType"
           value={editData.merchantType}
@@ -173,6 +196,8 @@ function EditModal({ selectedItem, editModalOpen, setEditModalOpen, handleCloseM
         </Box>
       </Box>
     </Modal>
+    {/* <ToastContainer/> */}
+    </>
   );
 }
 

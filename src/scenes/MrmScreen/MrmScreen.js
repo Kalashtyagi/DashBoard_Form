@@ -29,11 +29,13 @@ import { useQuery } from "@tanstack/react-query";
 import EmailIcon from "@mui/icons-material/Email";
 import EditModal from "../../components/Modal/EditModal";
 import Table from "../../components/Table";
+import FormComplanceModal from "../../components/Modal/FormComplanceModal";
 
 
 function MrmScreen(){ 
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [selectedRow, setSelectedRow] = useState(null);
+  const[formModalOpen,setFormModalOpen]=useState(false);
 
 
     const MrmEmail = sessionStorage.getItem("MrmEmail");
@@ -92,7 +94,6 @@ function MrmScreen(){
         return rowsWithIds;
       } catch (error) {
         console.error("Error fetching data:", error);
-        // You can handle errors here, such as displaying an error message
         return [];
       }
     };
@@ -129,6 +130,14 @@ function MrmScreen(){
       const handleCloseModal = () => {
         setEditModalOpen(false);
       };
+      const handleFormCloseModal=()=>{
+        setFormModalOpen(false);
+      }
+      const formModal=(row)=>{
+        setSelectedRow(row);
+        setFormModalOpen(true);
+
+      }
       const columns = [
         
         {
@@ -198,13 +207,18 @@ function MrmScreen(){
           align: "center",
           cellClassName: "custom-cell",
           renderCell: (params) => (
+
             <div
-              style={{ cursor: "pointer" }}
-              onClick={() => handleEdit(params.row)}
+              style={{ cursor: "pointer"}}
+              
             >
-              <Button size="small" variant="contained" color="success">
+              <Button size="small" variant="contained" color="success"onClick={() => handleEdit(params.row)}>
                 Edit
-              </Button>
+              </Button>&nbsp;
+              {params.row.status==true && <Button size="small" variant="contained" color="error" onClick={()=>formModal(params.row)}>
+                Fill Complaince Form
+              </Button> }
+              
             </div>
           ),
         },
@@ -222,7 +236,7 @@ function MrmScreen(){
       >
         <Accordion
           defaultExpanded
-          style={{ backgroundColor: isDark ? "white" : "#2e3b47" }}
+          style={{ backgroundColor: isDark ? "white" : "rgba(20,27,45,255)" }}
         >
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
@@ -377,7 +391,6 @@ function MrmScreen(){
       <Box
       m="20px"
       sx={{
-        // marginLeft: isCollapsed ? "100px" : "300px",
         transition: "margin-left 0.3s",
       }}
     >
@@ -397,6 +410,7 @@ function MrmScreen(){
         handleCloseModal={handleCloseModal}
         refetch={refetch}
       />
+    <FormComplanceModal rowData={selectedRow} formModalOpen={formModalOpen} setFormModalOpen={setEditModalOpen} handleFormCloseModal={handleFormCloseModal}/>
 
     </Box>
      <ToastContainer/>

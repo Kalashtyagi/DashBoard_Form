@@ -199,7 +199,7 @@ const Dashboard = () => {
           className="header"
           style={{ backgroundColor: isDark ? "#fcfcfc" : "#111b2d"}}
         >
-          <Header title="DASHBOARD" subtitle="New Merchant-overview" />
+          <Header title="DASHBOARDD" subtitle="New Merchant-overview" />
         </Box>
 
         {/* GRID & CHARTS */}

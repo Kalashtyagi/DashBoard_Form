@@ -105,21 +105,9 @@
   position: fixed;
   top: 0;
   z-index: 1000;
-  width: 1050px;
+  width: 100%;
 }
 
-@media (max-width: 1554px) {
-  .header {
-    /* border: 2px solid yellow; */
-    width: 52%;
-  }
-}
-@media (max-width: 1160px) {
-  .header {
-    /* border: 2px solid yellow; */
-    width: 45%;
-  }
-}
 .popUp {
   cursor: pointer;
   margin-left: 50px;

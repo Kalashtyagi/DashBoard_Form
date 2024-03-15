@@ -223,12 +223,12 @@ const Dashboard = () => {
         <Box
           display="grid"
           gridTemplateColumns="repeat(12, 1fr)"
-          gridAutoRows="140px"
+          gridAutoRows="200px"
           gap="10px"
         >
           {/* ROW 1 */}
           <Box
-            gridColumn="span 4"
+            gridColumn="span 6"
             backgroundColor={colors.primary[400]}
             display="flex"
             alignItems="center"
@@ -247,7 +247,7 @@ const Dashboard = () => {
             />
           </Box>
           <Box
-            gridColumn="span 4"
+            gridColumn="span 6"
             backgroundColor={colors.primary[400]}
             display="flex"
             alignItems="center"
@@ -265,113 +265,10 @@ const Dashboard = () => {
               }
             />
           </Box>
-          <div>
-            <div className="adminLog" style={{ marginTop: "-90px" }}>
-              <h6
-                style={{
-                  textAlign: "center",
-                  color: !isDark ? "white" : "black",
-                  fontSize: "26px",
-                  marginTop: "-100px",
-                  position: "sticky",
-                  top: 0,
-                  backgroundColor: isDark ? "#fcfcfc" : "#111b2d",
-                  // zIndex: -1000,
-                  // border: "4px solid #3da58a",
-                }}
-              >
-                Admin log
-              </h6>
-              <br />
-              {/* <br /> */}
-              <div>
-                {allAdminLogs.length === 0 ? (
-                  <Typography variant="h5" mt={2} ml={2} style={{marginTop:'150px',textAlign:'center'}}  color="textSecondary">
-                    No data found
-                  </Typography>
-                ) : (
-                  allAdminLogs.map((item, index) => (
-                    <div
-                      key={item.adminId}
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        padding: "5px",
-                      }}
-                    >
-                      <div>
-                        <p>{item.adminId}</p>
-                      </div>
-                      <p
-                        style={{
-                          color: "#3da58a",
-                          cursor: "pointer",
-                          marginRight: "12px",
-                        }}
-                        onClick={() => openViewMore(item)}
-                      >
-                        view More
-                      </p>
-                    </div>
-                  ))
-                )}
-
-              </div>
-            </div>
-
-            <div className="merchantLog" style={{ marginTop: "-70px",width:isCollapsed?"500px":"450px" }}>
-              <h6
-                style={{
-                  textAlign: "center",
-                  color: !isDark ? "white" : "black",
-                  fontSize: "26px",
-                  margin: "0",
-                  position: "sticky",
-                  top: 0,
-                  backgroundColor: isDark ? "#fcfcfc" : "#111b2d",
-                  zIndex: 1,
-                  // border: "4px solid #3da58a",
-                }}
-              >
-                Merchant log
-              </h6>
-              <br />
-              {merchantLogs.length === 0 ? (
-                <Typography variant="h5" mt={2} ml={2} color="textSecondary"style={{textAlign:'center'}}>
-                  No data found
-                </Typography>
-              ) : (
-                <div>
-                  {merchantLogs.map((item) => (
-                    <div
-                      key={item.logId}
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        padding: "5px",
-                      }}
-                    >
-                      <p>{item.merchantId}</p>
-                      <p
-                        onClick={() => openViewMore(item)}
-                        style={{
-                          color: "#3da58a",
-                          cursor: "pointer",
-                          marginRight: "12px",
-                        }}
-                      >
-                        view More
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              )}
-
-            </div>
-          </div>
+         
 
           <Box
-            gridColumn="span 8"
+            gridColumn="span 6"
             gridRow="span 2"
             backgroundColor={colors.primary[400]}
           >
@@ -411,12 +308,32 @@ const Dashboard = () => {
                 isDashboard={true}
               />
             </Box>
+            
+          </Box>
+          <Box
+            gridColumn="span 6"
+            gridRow="span 2"
+            backgroundColor={colors.primary[400]}
+            p="30px"
+          >
+            <Typography variant="h5" fontWeight="600">
+              On Boarding by location
+            </Typography>
+            <Box
+              display="flex"
+              flexDirection="row"
+              alignItems="center"
+              mt="25px"
+              justifyContent="space-between"
+            >
+              <PieActiveArc size="175" />
+            </Box>
           </Box>
 
           {/* ROW 3 */}
 
           <Box
-            gridColumn="span 8"
+            gridColumn="span 12"
             gridRow="span 2"
             position="relative"
             overflow="auto"
@@ -503,25 +420,7 @@ const Dashboard = () => {
             )}
 
           </Box>
-          <Box
-            gridColumn="span 8"
-            gridRow="span 2"
-            backgroundColor={colors.primary[400]}
-            p="30px"
-          >
-            <Typography variant="h5" fontWeight="600">
-              On Boarding by location
-            </Typography>
-            <Box
-              display="flex"
-              flexDirection="row"
-              alignItems="center"
-              mt="25px"
-              justifyContent="space-between"
-            >
-              <PieActiveArc size="175" />
-            </Box>
-          </Box>
+          
         </Box>
 
         <ApproveModal anchorEl={anchorEl} rowData={selectedItem} app={app} handlePopoverClose={handlePopoverClose} />

@@ -65,7 +65,7 @@ const MonthlyLineChart = ({ chartData }) => {
 
   return (
     <LineChart
-      width={matches ? 500 : 750}
+      width={matches ? 500 : 650}
       height={240}
       series={[
         { data: monthlyData.pData, label: "This Year", id: "thisYearId" },

@@ -135,6 +135,9 @@ const MerchantForm = () => {
       })
       setPdfLoader(false);
     } catch (error) {
+      toast.error("something went wrong please try again",{
+        position:'top-center'
+      })
       console.error('Error downloading file:', error);
       setPdfLoader( false);
     }

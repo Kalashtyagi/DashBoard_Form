@@ -23,6 +23,7 @@ import MrmScreen from "./scenes/MrmScreen/MrmScreen";
 import MerchantApproval from "./scenes/MerchantApproval/MerchantApproval";
 import MerchantLog from "./scenes/logs/MerchantLog";
 import AdminLog from "./scenes/logs/AdminLog";
+import Mainform from "../src/components/Form/Mainform";
 function App() {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
@@ -48,9 +49,9 @@ function App() {
   const isForgetPassword = window.location.pathname === "/reset-password";
   const isPdf = window.location.pathname === "/pdf";
   const isMrm=window.location.pathname==="/mrm";
+const isHdfcForm = window.location.pathname === "/hdfcForm";
 
-
-  const sidebarVisible = isMrm || isLoginPage || isForgetPassword || isPdf ? false : isSidebar;
+  const sidebarVisible = isHdfcForm || isMrm || isLoginPage || isForgetPassword || isPdf ? false : isSidebar;
   
 
   return (
@@ -60,7 +61,7 @@ function App() {
         <div className="app">
           {sidebarVisible && <Sidebar isSidebar={isSidebar} />}
           <main className="content">
-            {!isLoginPage && !isPdf && <Topbar setIsSidebar={setIsSidebar} />}
+            {!isLoginPage && !isPdf && !isHdfcForm && <Topbar setIsSidebar={setIsSidebar} />}
             <Routes>
               <Route path="/" element={<Login />} />
 
@@ -80,6 +81,7 @@ function App() {
               <Route path="merchantApproval" element={<MerchantApproval/>}/>
               <Route path="/merchantLog" element={<MerchantLog/>}/>
               <Route path="/adminLog" element={<AdminLog/>}/>
+              <Route path ="/hdfcForm" element={<Mainform/>}/>
             </Routes>
           </main>
         </div>

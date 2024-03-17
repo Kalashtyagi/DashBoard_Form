@@ -1,0 +1,118 @@
+{
+  "India": {
+    "states": [
+      {
+        "name": "Andhra Pradesh",
+        "cities": ["Amaravati", "Visakhapatnam", "Vijayawada", "Tirupati"]
+      },
+      {
+        "name": "Arunachal Pradesh",
+        "cities": ["Itanagar", "Naharlagun", "Pasighat"]
+      },
+      {
+        "name": "Assam",
+        "cities": ["Dispur", "Guwahati", "Silchar", "Dibrugarh"]
+      },
+      {
+        "name": "Bihar",
+        "cities": ["Patna", "Gaya", "Bhagalpur", "Muzaffarpur"]
+      },
+      {
+        "name": "Chhattisgarh",
+        "cities": ["Raipur", "Bhilai", "Bilaspur", "Korba"]
+      },
+      {
+        "name": "Goa",
+        "cities": ["Panaji", "Margao", "Vasco da Gama"]
+      },
+      {
+        "name": "Gujarat",
+        "cities": ["Gandhinagar", "Ahmedabad", "Surat", "Vadodara"]
+      },
+      {
+        "name": "Haryana",
+        "cities": ["Chandigarh", "Faridabad", "Gurgaon", "Hisar"]
+      },
+      {
+        "name": "Himachal Pradesh",
+        "cities": ["Shimla", "Mandi", "Dharamshala"]
+      },
+      {
+        "name": "Jharkhand",
+        "cities": ["Ranchi", "Jamshedpur", "Dhanbad", "Bokaro"]
+      },
+      {
+        "name": "Karnataka",
+        "cities": ["Bangalore", "Mysore", "Hubli", "Mangalore"]
+      },
+      {
+        "name": "Kerala",
+        "cities": ["Thiruvananthapuram", "Kochi", "Kozhikode", "Thrissur"]
+      },
+      {
+        "name": "Madhya Pradesh",
+        "cities": ["Bhopal", "Indore", "Jabalpur", "Gwalior"]
+      },
+      {
+        "name": "Maharashtra",
+        "cities": ["Mumbai", "Pune", "Nagpur", "Nashik"]
+      },
+      {
+        "name": "Manipur",
+        "cities": ["Imphal", "Thoubal", "Kakching"]
+      },
+      {
+        "name": "Meghalaya",
+        "cities": ["Shillong", "Tura", "Nongstoin"]
+      },
+      {
+        "name": "Mizoram",
+        "cities": ["Aizawl", "Lunglei", "Champhai"]
+      },
+      {
+        "name": "Nagaland",
+        "cities": ["Kohima", "Dimapur", "Mokokchung"]
+      },
+      {
+        "name": "Odisha",
+        "cities": ["Bhubaneswar", "Cuttack", "Rourkela", "Berhampur"]
+      },
+      {
+        "name": "Punjab",
+        "cities": ["Chandigarh", "Ludhiana", "Amritsar", "Jalandhar"]
+      },
+      {
+        "name": "Rajasthan",
+        "cities": ["Jaipur", "Jodhpur", "Udaipur", "Kota"]
+      },
+      {
+        "name": "Sikkim",
+        "cities": ["Gangtok", "Namchi", "Mangan"]
+      },
+      {
+        "name": "Tamil Nadu",
+        "cities": ["Chennai", "Coimbatore", "Madurai", "Tiruchirappalli"]
+      },
+      {
+        "name": "Telangana",
+        "cities": ["Hyderabad", "Warangal", "Nizamabad", "Karimnagar"]
+      },
+      {
+        "name": "Tripura",
+        "cities": ["Agartala", "Udaipur", "Dharmanagar"]
+      },
+      {
+        "name": "Uttar Pradesh",
+        "cities": ["Lucknow", "Kanpur", "Agra", "Varanasi"]
+      },
+      {
+        "name": "Uttarakhand",
+        "cities": ["Dehradun", "Haridwar", "Roorkee", "Haldwani"]
+      },
+      {
+        "name": "West Bengal",
+        "cities": ["Kolkata", "Howrah", "Durgapur", "Asansol"]
+      }
+    ]
+  }
+}

@@ -30,12 +30,15 @@ import EmailIcon from "@mui/icons-material/Email";
 import EditModal from "../../components/Modal/EditModal";
 import Table from "../../components/Table";
 import FormComplanceModal from "../../components/Modal/FormComplanceModal";
+import { useNavigate } from "react-router-dom";
 
 
 function MrmScreen(){ 
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [selectedRow, setSelectedRow] = useState(null);
   const[formModalOpen,setFormModalOpen]=useState(false);
+
+  const navigate = useNavigate();
 
 
     const MrmEmail = sessionStorage.getItem("MrmEmail");
@@ -381,6 +384,9 @@ function MrmScreen(){
               <Box display="flex" justifyContent="center" mt="20px">
                 <Button type="submit" color="secondary" variant="contained"disabled={loading}>
                   Create New Merchant
+                </Button>
+                <Button variant="contained" color="secondary" onClick={()=>navigate("/hdfcForm")}>
+                  Hdfc Form
                 </Button>
               </Box>
             </form>
